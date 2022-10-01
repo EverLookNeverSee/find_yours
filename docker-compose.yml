@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+
+  backend:
+    container_name: find_yours_backend
+    build: .
+    ports:
+      - "8000:8000"
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+
+  database:
+    container_name: find_yours_database
+    image: postgres:14.5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgres_data:
